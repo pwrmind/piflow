@@ -1,7 +1,70 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "piflow"
+name = "pi-topology"
 version = "0.1.0"
-description = "Add your description here"
+description = "Parallel State-Space Mathematics Framework"
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = []
+license = {text = "MIT"}
+authors = [
+    {name = "Π-Topology Research Group", email = "research@pi-topology.org"},
+]
+keywords = ["parallel-computing", "optimization", "gpu", "mathematics", "topology"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.21.0",
+    "scipy>=1.8.0",
+]
+
+[project.optional-dependencies]
+gpu = ["torch>=2.0.0"]
+visualization = ["matplotlib>=3.5.0", "plotly>=5.10.0"]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=22.0.0",
+    "flake8>=5.0.0",
+    "mypy>=0.990",
+    "jupyter>=1.0.0",
+]
+examples = ["pandas>=1.4.0", "scikit-learn>=1.0.0"]
+
+[project.scripts]
+pi-benchmark = "pi_topology.benchmarks:run_benchmarks"
+pi-visualize = "pi_topology.visualizer:cli"
+
+[project.urls]
+"Homepage" = "https://github.com/yourusername/pi-topology"
+"Bug Tracker" = "https://github.com/yourusername/pi-topology/issues"
+"Documentation" = "https://pi-topology.readthedocs.io"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--verbose --color=yes"
